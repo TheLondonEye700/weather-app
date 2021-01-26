@@ -1,0 +1,18 @@
+html{
+    font-size: $fs-html-px;
+}
+body{
+    font-family: 'Quicksand', sans-serif;
+    padding: 0;
+    margin: 0;
+    background-color: $color-grey-0;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+#weather{
+    max-width: 1600px;
+    margin: auto;
+}

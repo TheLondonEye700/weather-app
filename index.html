@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- BS4 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <!-- GOOGLE FONT -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+        integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+        crossorigin="anonymous" />
+    <!-- SWIPER  -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+
+    <!-- CSS  -->
+    <link rel="stylesheet" href="./css/main.css">
+    <title>Weather App</title>
+</head>
+
+<body class="">
+
+    <section id="weather">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4 col-lg-3" id="weather__today">
+                    <div class="weather__search">
+                        <form id="locationForm" class="input-group d-flex align-items-center">
+                            <i class="fa fa-search"></i>
+                            <input class="form-control" type="text" placeholder="Enter location" id="inputSearch">
+                        </form>
+                    </div>
+                    <div class="weather__state">
+                        <div class="weather__state__icon">
+                            <img id="currentIcon" class="img-fluid" src="./img/clear-day.svg" alt="weather-icon">
+                        </div>
+                        <div class="weather__feature">
+                            <p class="weather__feature-temperature display-5" id="currentTemp">
+                                12<sup id="temperature__sign">°C</sup></p>
+                            <p class="today__times" id="updateTime">Monday, <span>16:00</span></p>
+
+                            <div class="weather__feature-state">
+                                <p class="feature__state" id="featureState1">
+                                    <img src="./img/clear-day.svg" alt="weather-icon">
+                                    Clear
+                                </p>
+                                <p class="feature__state" id="featureState2">
+                                    <img src="./img/rain.svg" alt="weather-icon">
+                                    No rain
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="location__image">
+                        <div class="location__image__bg">
+                            <p id="locationName">NEW YORK, USA</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-8 col-lg-9" id="weather__detail">
+                    <nav class="detail-nav d-flex justify-content-between align-items-center">
+                        <ul class="detail-nav__time list-unstyled d-flex">
+                            <li>
+                                <a class="detail__week active" href="#" id="week">Week</a>
+                            </li>
+                        </ul>
+                        <ul class="detail-nav__mode list-unstyled d-flex align-items-center">
+                            <li class="detail__mode__item active" id="celcius">
+                                <a class="temperature" href="#null">°C</a>
+                            </li>
+                            <li class="detail__mode__item " id="fahrenheit">
+                                <a class="temperature " href="#null">°F</a>
+                            </li>
+                            <li class="detail__darkmode-toggle">
+                                <label for="darkmode__toggler">
+                                    <input type="checkbox" id="darkmode__toggler" class="d-none">
+                                    <div class="toggler__btn">
+                                        <span class="btn__circle"></span>
+                                    </div>
+                                </label>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div class="weather__week">
+                        <div class="weather__week-slide swiper-container" id="weekSlide">
+                            <!-- Additional required wrapper -->
+                            <div class="swiper-wrapper">
+                                <!-- Slides -->
+                                <div class="swiper-slide weather__card" id="dayAfter-0">
+                                    <h4>Today</h4>
+                                    <img src="./img/clear-day.svg" alt="weather-icon">
+                                    <p class="temperature__type">15°
+                                        <span class="temperature__type">-3°
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="swiper-slide weather__card" id="dayAfter-1">
+                                    <h4>Mon</h4>
+                                    <img src="./img/clear-day.svg" alt="weather-icon">
+                                    <p class="temperature__type">12°
+                                        <span class="temperature__type">7°
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="swiper-slide weather__card" id="dayAfter-2">
+                                    <h4>Tue</h4>
+                                    <img src="./img/clear-night.svg" alt="weather-icon">
+                                    <p class="temperature__type">15°
+                                        <span class="temperature__type">-3°
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="swiper-slide weather__card" id="dayAfter-3">
+                                    <h4>Wed</h4>
+                                    <img src="./img/cloudy.svg" alt="weather-icon">
+                                    <p class="temperature__type">15°
+                                        <span class="temperature__type">-3°
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="swiper-slide weather__card" id="dayAfter-4">
+                                    <h4>Thurs</h4>
+                                    <img src="./img/rain.svg" alt="weather-icon">
+                                    <p class="temperature__type">12°
+                                        <span class="temperature__type">7°
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="swiper-slide weather__card" id="dayAfter-5">
+                                    <h4>Fri</h4>
+                                    <img src="./img/scattered-showers-day.svg" alt="weather-icon">
+                                    <p class="temperature__type">8°
+                                        <span class="temperature__type">1°
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="swiper-slide weather__card" id="dayAfter-6">
+                                    <h4>Sat</h4>
+                                    <img src="./img/drizzle.svg" alt="weather-icon">
+                                    <p class="temperature__type">5°
+                                        <span class="temperature__type">-2°
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+    
+                            <!-- If we need navigation buttons -->
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-button-next"></div>
+                        </div>
+                    </div>
+                    <div class="weather__today_highlight">
+                        <h3>Today's Highlights</h3>
+                        <div class="row">
+                            <div class="col-xl-4 highlight_item">
+                                <div class="highlight__item__content">
+                                    <h3>UV Index</h3>
+                                    <div class="item_number" id="highlight__uv">00</div>
+                                    <div class="quality__evaluation" id="quality__uv">Low</div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 highlight_item highlight__wind">
+                                <div class="highlight__item__content">
+                                    <h3>Wind Status</h3>
+                                    <div class="item_number" id="windVelocity">0.00
+                                        <span>km/h</span>
+                                    </div>
+                                    <div id="windDirection">
+                                        <i class="fa fa-map-marker-alt"></i>
+                                        WSW
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 highlight_item highlight__sun">
+                                <div class="highlight__item__content">
+                                    <h3>Sunrise & Sunset</h3>
+                                    <div class="sunrise__sunset d-flex align-items-center">
+                                        <div class="sunrise__sunset__icon">
+                                            <i class="fa fa-arrow-up"></i> 
+                                        </div>
+                                        <div class="sunrise__sunset__detail">
+                                            <p class="time" id="sunriseTime" >6:00 AM</p>
+                                            <p class="duration">- 1m 40s</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="sunrise__sunset d-flex align-items-center">
+                                        <div class="sunrise__sunset__icon">
+                                            <i class="fa fa-arrow-down"></i>
+                                        </div>
+                                        <div class="sunrise__sunset__detail">
+                                            <p id="sunsetTime" class="time">5:00 PM</p>
+                                            <p class="duration">+ 2m 20s</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 highlight_item">
+                                <div class="highlight__item__content">
+                                    <h3>Humidity</h3>
+                                    <div class="item_number" id="highlight__humid">00<span>%</span></div>
+                                    <div class="quality__evaluation" id="quality__humid">Normal</div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 highlight_item">
+                                <div class="highlight__item__content">
+                                    <h3>Visibility</h3>
+                                    <div class="item_number" id="highlight__visibility">00.0 <span>km</span></div>
+                                    <div class="quality__evaluation" id="visibilityEvaluate">Good</div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-xl-4 highlight_item highlight__air">
+                                <div class="highlight__item__content">
+                                    <h3>Air Quality</h3>
+                                    <div class="item_number">00</div>
+                                    <div class="quality__evaluation">Healthy</div>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- JavaScript Bundle with Popper -->
+    <script
+        src="https://polyfill.io/v3/polyfill.min.js?features=Array.from,Promise,Symbol,Object.setPrototypeOf,Object.getOwnPropertySymbols,Set"></script>
+    <script src="https://cdn.jsdelivr.net/npm/superagent"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- SWIPER  -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        var mySwiper = new Swiper('.swiper-container', {
+            slidesPerView: 4,
+            spaceBetween: 20,
+
+            //Responsive breakpoints
+            breakpoints:{
+                0:{
+                    slidesPerView: 3,
+                },
+                640:{
+                    slidesPerView: 4,
+                },
+                768:{
+                    slidesPerView: 3,
+                },
+                975:{
+                    slidesPerView: 4,
+                },
+                1090:{
+                    slidesPerView: 5,
+                }
+            },
+
+            // Navigation arrows
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            
+        })
+    </script>
+
+    <script src="./js/main.js"></script>
+</body>
+
+</html>
