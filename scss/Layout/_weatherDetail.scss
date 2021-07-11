@@ -1,22 +1,22 @@
-#weather__detail{
+#weather__detail {
     background-color: $color-grey-0;
     padding: $pd-7 $pd-10;
-    .detail-nav{
-        .detail-nav__time{
-            li{
-               .detail__week{
-                   border-bottom: $border-1 $color-black;
-                   text-decoration: none;
-                   padding-bottom: $pd-0;
-                   @include styleText($fs-3, $fw-bold,$color-grey-2);
-                   &.active{
+    .detail-nav {
+        .detail-nav__time {
+            li {
+                .detail__week {
+                    border-bottom: $border-1 $color-black;
+                    text-decoration: none;
+                    padding-bottom: $pd-0;
+                    @include styleText($fs-3, $fw-bold, $color-grey-2);
+                    &.active {
                         color: $color-black;
-                   }
-               } 
+                    }
+                }
             }
         }
-        .detail-nav__mode{
-            .detail__mode__item{
+        .detail-nav__mode {
+            .detail__mode__item {
                 height: 40px;
                 width: 40px;
                 border-radius: 50%;
@@ -24,94 +24,91 @@
                 cursor: pointer;
                 background-color: $color-white;
                 margin-right: $mg-3;
-                a{
+                a {
                     text-decoration: none;
                     @include styleText($fs-3 - 2, $fw-bold, $color-black);
                     line-height: 40px;
-                    
                 }
-                &.active{
+                &.active {
                     background-color: $color-black;
-                    a{
+                    a {
                         color: $color-white;
                     }
                 }
             }
         }
     }
-
-    .weather__week{
-        .weather__week-slide{
+    .weather__week {
+        .weather__week-slide {
             margin-top: $mg-4;
-            .weather__card{
+            .weather__card {
                 text-align: center;
                 padding: $pd-2 $pd-4;
                 border-radius: 15px;
                 background-color: $color-white;
                 height: unset;
-                h4{
+                h4 {
                     @include styleText($fs-4 + 1, $fw-bold, $color-black);
                     margin-bottom: 0;
                 }
-                img{
+                img {
                     display: inline-block;
-                    width: 80px;
+                    // width: 80px;
                     height: 80px;
                     padding: $pd-1 0;
                 }
-                p{
+                p {
                     @include styleText($fs-4 + 1, $fw-bold, $color-black);
-                    span{
+                    span {
                         color: $color-grey-2;
                     }
                 }
             }
-            .swiper-button-next, .swiper-button-prev {
+            .swiper-button-next,
+            .swiper-button-prev {
                 color: $color-black;
-                &::after{
+                &::after {
                     font-size: $fs-5 + 1;
                     font-weight: $fw-600;
                 }
             }
         }
     }
-
-    .weather__today_highlight{
+    .weather__today_highlight {
         padding-top: $pd-7;
-        h3{
+        h3 {
             @include styleText($fs-3, $fw-bold, $color-black);
             letter-spacing: 1px;
             margin-bottom: 0;
         }
-        .highlight_item{
+        .highlight_item {
             margin-top: $mg-5;
-            .highlight__item__content{
+            .highlight__item__content {
                 height: 180px;
                 padding: $pd-3 $pd-6;
                 border-radius: 15px;
                 background-color: $color-white;
-                h3{
+                h3 {
                     @include styleText($fs-html-px + 2, $fw-600, $color-grey-2);
                     letter-spacing: 0;
                 }
-                .item_number{
+                .item_number {
                     @include styleText($fs-6 - 5, $fw-500, $color-black);
                     padding: $pd-0 0;
                     margin-bottom: 0;
-                        span{
-                            font-size: $fs-3;
-                            font-weight: $fw-600;
-                        }
+                    span {
+                        font-size: $fs-3;
+                        font-weight: $fw-600;
+                    }
                 }
-                .quality__evaluation{
+                .quality__evaluation {
                     @include styleText($fs-3, $fw-600, $color-black)
                 }
-
-                #windDirection{
+                #windDirection {
                     font-weight: $fw-600;
                     font-size: $fs-3;
                     // margin-left: $mg-1;
-                    i{
+                    i {
                         height: 35px;
                         width: 35px;
                         line-height: 31px;
@@ -124,13 +121,12 @@
                         font-size: $fs-html-px + 1;
                     }
                 }
-
-                .sunrise__sunset{
+                .sunrise__sunset {
                     margin-top: $mg-2;
                     // justify-content: space-between;
-                    .sunrise__sunset__icon{
+                    .sunrise__sunset__icon {
                         margin-right: $mg-4;
-                        i{
+                        i {
                             height: 35px;
                             width: 35px;
                             line-height: 35px;
@@ -142,21 +138,18 @@
                             box-shadow: inset 0 0 12px 3px $color-orange-0;
                         }
                     }
-                    .sunrise__sunset__detail{
-                        p{
+                    .sunrise__sunset__detail {
+                        p {
                             margin-bottom: 0;
-                            &.time{
+                            &.time {
                                 @include styleText($fs-html-px + 2, $fw-600, $color-black)
                             }
-                            &.duration{
+                            &.duration {
                                 @include styleText($fs-4, $fw-600, $color-grey-2)
                             }
                         }
                     }
-
-                   
                 }
-                
             }
         }
     }

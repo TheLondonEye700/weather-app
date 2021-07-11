@@ -1,10 +1,10 @@
-#weather__today{
+#weather__today {
     background-color: $color-white;
     padding: $pd-7;
     min-height: 100vh;
-    .weather__search{
-        #locationForm{
-            #inputSearch{
+    .weather__search {
+        #locationForm {
+            #inputSearch {
                 margin-left: $mg-0;
                 border: none;
                 box-shadow: none;
@@ -12,50 +12,47 @@
             }
         }
     }
-    .weather__state{
+    .weather__state {
         padding: $pd-5 $pd-3;
-        .weather__state__icon{
+        .weather__state__icon {
             height: 200px;
             width: 100%;
             text-align: center;
-            img{
-                width: 100%;
+            img {
                 height: 100%;
             }
         }
-        .weather__feature{
+        .weather__feature {
             // text-align: center;
-            .weather__feature-temperature{
-                    font-weight: $fw-0;
-                    font-size: $fs-7;
-                    margin: 0;
-                    line-height: 1;
-                    padding: $pd-5 0;
-                    sup{
-                        font-size: $fs-6;
-                    }
+            .weather__feature-temperature {
+                font-weight: $fw-0;
+                font-size: $fs-7;
+                margin: 0;
+                line-height: 1;
+                padding: $pd-5 0;
+                sup {
+                    font-size: $fs-6;
+                }
             }
-            .today__times{
+            .today__times {
                 padding-bottom: 30px;
                 margin: 0;
                 font-size: $fs-1;
                 font-weight: $fw-600;
                 border-bottom: $border-1 $color-grey-0;
-                span{
+                span {
                     color: $color-grey-2;
                 }
             }
-
-            .weather__feature-state{
+            .weather__feature-state {
                 padding: $pd-3 0 $pd-5;
                 height: 115px;
                 width: 100%;
-                .feature__state{
+                .feature__state {
                     @include styleText($fs-4, $fw-600, $color-black);
                     margin-bottom: $mg-1;
                     text-transform: capitalize;
-                    
-                    img{
+                    img {
                         display: inline-block;
                         width: 30px;
                         margin-right: 10px;
@@ -64,19 +61,19 @@
             }
         }
     }
-    .location__image{
-        .location__image__bg{
+    .location__image {
+        .location__image__bg {
             background-image: url("../img/location-rain.jpg");
             @extend %bgImg;
             border-radius: 20px;
-            p{
+            p {
                 padding: $pd-7;
                 text-align: center;
-                @include styleText($fs-4, $fw-500, $color-white);
+                @include styleText($fs-4,
+                $fw-500,
+                $color-white);
                 margin-bottom: 0;
-                
             }
         }
     }
-
 }

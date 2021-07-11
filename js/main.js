@@ -6,9 +6,17 @@ const roundNum = (rawTempt) => {
     return Math.ceil(rawTempt)
 }
 
-const changeToCel = (farTemp) => {
+const changeToCel = (kelTemp) => {
+    let farTemp = (kelTemp - 273.15) * 9 / 5 + 32;
     const rawTempt = (farTemp - 32) * 5 / 9;
     return roundNum(rawTempt);
+}
+
+const getTime = (dataList, rawDate, timeZone) => {
+    const time = rawDate.toLocaleString('en-GB', { timeZone: timeZone });
+    const hourTime = time.split(" ")[1].split(":");
+    dataList.push(hourTime[0]);
+    dataList.push(hourTime[1]);
 }
 
 const formatDate = (rawDate, timeZone) => {
@@ -37,12 +45,7 @@ const formatDate = (rawDate, timeZone) => {
             dataFormat.push("Sunday");
             break;
     }
-
-    const time = rawDate.toLocaleString("en-GB", { timeZone: timeZone });
-    const hourTime = time.split(" ")[1].split(":");
-    dataFormat.push(hourTime[0]);
-    dataFormat.push(hourTime[1])
-
+    getTime(dataFormat, rawDate, timeZone);
     return dataFormat;
 }
 
@@ -50,44 +53,42 @@ const formatDate = (rawDate, timeZone) => {
 const indexRating = (data, low, normal) => {
     if (data <= low) {
         return "Low"
-    } else if (data <= normal) {
-        return "Normal"
-    } else {
-        return "High"
     }
+    if (data <= normal) {
+        return "Normal"
+    }
+    return "High"
 }
 
 // change display on search
 const changeWeatherToday = (resWeather) => {
     let celciusTemp;
     let temptSign;
-    if (celciusType){
-        celciusTemp = changeToCel(resWeather.temperature);
+    if (celciusType) {
+        celciusTemp = changeToCel(resWeather.temp);
         temptSign = "°C";
-    } else{
-        celciusTemp = roundNum(resWeather.temperature);
+    } else {
+        celciusTemp = roundNum((resWeather.temp - 273.15) * 9 / 5 + 32);
         temptSign = "°F";
     }
-    const date = new Date(resWeather.time * 1000);
+
+    const date = new Date(resWeather.dt * 1000);
+    console.log(resWeather.dt)
     const dateFormatted = formatDate(date, resWeather.timeZone);
 
-    document.getElementById("currentIcon").setAttribute("src", `./img/${resWeather.icon}.svg`)
+    document.getElementById("currentIcon").setAttribute("src", `./img/${resWeather.icon}.png`)
 
     document.getElementById("featureState1").innerHTML = `
-            <img src="./img/${resWeather.icon}.svg" alt="weather-icon">
-            ${resWeather.summary}
+            <img src="./img/${resWeather.icon}.png" alt="weather-icon">
+            ${resWeather.main}
     `;
 
-    if (resWeather.precipType != undefined) {
-        document.getElementById("featureState2").innerHTML = `
-                <img src="./img/rain.svg" alt="weather-icon">
-        
-                ${resWeather.precipType}
-            `
-    }
+    document.getElementById("featureState2").innerHTML = `
+            <img src="./img/rain.svg" alt="weather-icon">
+            ${resWeather.description}
+    `;
 
-    document.getElementById("currentTemp").innerHTML = `
-            ${celciusTemp} 
+    document.getElementById("currentTemp").innerHTML = ` ${celciusTemp} 
             <sup id="temperature__sign">${temptSign}</sup>
         `;
 
@@ -103,64 +104,60 @@ const changeWeek = (resWeather) => {
 
     for (let i = 0; i < 7; i++) {
         let currentCardChild = document.getElementById(`dayAfter-${i}`).children;
-        const date = new Date(weekDataList[i].time * 1000);
+        const date = new Date(weekDataList[i].dt * 1000);
         if (i != 0) {
-            currentCardChild[0].innerHTML = `${formatDate(date)[0]}`;
+            currentCardChild[0].innerHTML = `${formatDate(date, resWeather.timeZone)[0]}`;
         }
 
-        currentCardChild[1].setAttribute("src", `./img/${weekDataList[i].icon}.svg`);
+        currentCardChild[1].setAttribute("src", `./img/${weekDataList[i].weather[0].icon}.png`);
 
-        if (celciusType){
+        if (celciusType) {
             currentCardChild[2].innerHTML = `
-                ${changeToCel(weekDataList[i].apparentTemperatureHigh)}°
-                <span class="temperature__type">${changeToCel(weekDataList[i].apparentTemperatureLow)}°</span>
+                ${changeToCel(weekDataList[i].temp.min)}°
+                <span class="temperature__type">${changeToCel(weekDataList[i].temp.max)}°</span>
             `;
-        } else{
+        } else {
             currentCardChild[2].innerHTML = `
-                ${roundNum(weekDataList[i].apparentTemperatureHigh)}°
-                <span class="temperature__type">${roundNum(weekDataList[i].apparentTemperatureLow)}°</span>
+                ${roundNum((weekDataList[i].temp.min - 273.15) * 9 / 5 + 32)}°
+                <span class="temperature__type">${roundNum((weekDataList[i].temp.max - 273.15) * 9 / 5 + 32)}°</span>
             `;
         }
 
-        
     }
 }
 
 const changeHighlight = (resWeather) => {
-    document.getElementById("highlight__uv").innerHTML = resWeather.uvIndex;
-    document.getElementById("quality__uv").innerHTML = `
-            ${indexRating(resWeather.uvIndex, 3, 7)}
-        `;
+    const rawSunrise = new Date(resWeather.sunrise * 1000);
+    const rawSunset = new Date(resWeather.sunset * 1000);
 
-    document.getElementById("windVelocity").innerHTML = `
-            ${resWeather.windSpeed}
-            <span>km/h</span>
-        `;
-
-    const todayExtendedData = resWeather.data[0];
-    const sunrise = new Date(todayExtendedData.sunriseTime * 1000)
-    const sunset = new Date(todayExtendedData.sunsetTime * 1000)
     document.getElementById("sunriseTime").innerHTML = `
-            ${formatDate(sunrise, resWeather.timeZone)[1]}:${formatDate(sunrise, resWeather.timeZone)[2]} AM
+            ${formatDate(rawSunrise, resWeather.timeZone)[1]}:${formatDate(rawSunrise,resWeather.timeZone)[2]} AM
         `
     document.getElementById("sunsetTime").innerHTML = `
-            ${formatDate(sunset, resWeather.timeZone)[1]}:${formatDate(sunset, resWeather.timeZone)[2]} AM
+            ${formatDate(rawSunset,resWeather.timeZone)[1]}:${formatDate(rawSunset,resWeather.timeZone)[2]} PM
         `
 
+    document.getElementById("highlight__uv").innerHTML = resWeather.uvi;
+    document.getElementById("quality__uv").innerHTML = `
+            ${indexRating(resWeather.uvi, 3, 5)}
+        `;
+    document.getElementById("windVelocity").innerHTML = `
+            ${resWeather.wind_speed}
+            <span>m/h</span>
+        `;
     document.getElementById("highlight__humid").innerHTML = `
-            ${resWeather.humidity * 100}
+            ${resWeather.humidity}
             <span>%</span>
         `;
     document.getElementById("quality__humid").innerHTML = `
-            ${indexRating(resWeather.quality__humid, 0.3, 0.6)}
+            ${indexRating(resWeather.humidity, 30, 60)}
         `;
-
     document.getElementById("highlight__visibility").innerHTML = `
-            ${roundNum(resWeather.visibility)}
+            ${roundNum(resWeather.visibility) / 1000}
             <span>km</span>
         `;
     document.getElementById("visibilityEvaluate").innerHTML = `
-            ${indexRating(resWeather.quality__humid, 0.3, 0.6)}
+            ${indexRating(resWeather.visibility / 1000, 5, 16)}
         `;
 }
 
@@ -171,9 +168,9 @@ const main = (e) => {
 
     promiseGCode
         .then((res) => {
-            return getWeather(res.lat, res.lng, res.fullAddress);    // nhận hàm then() tiếp theo
+            return getWeather(res.lat, res.lng, res.fullAddress);
 
-        }).then((resWeather) => {                   // res này là return của getWeather() => promise chain
+        }).then((resWeather) => {
             //today main weather
             changeWeatherToday(resWeather);
 
@@ -184,26 +181,25 @@ const main = (e) => {
             changeHighlight(resWeather);
 
         }).catch((err) => {
-            console.log(err)
+            console.log(err);
+            alert("Error in getting data");
         })
 
     e.preventDefault();
 }
 
-
-// get information
 const getGeoCode = (address) => {
     return new Promise((resolve, reject) => {
-        // use superagent: lấy dữ liệu asyncronous: khi trả dữ liệu về mới chạy hàm end()
         superagent
-            .get(`https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyDBunJ4GXNEC3KJlpoGJO-iB--CjPv4o-s&address=${address}`)
+            .get(`http://api.positionstack.com/v1/forward?access_key=494ba1f7c2875dcba864478f68e00bb3&query=${address}`)
             .end((err, res) => {
                 if (err) {
-                    reject(err)
+                    reject(err);
                 }
-
-                const fullAddress = res.body.results[0].formatted_address;
-                const { lat, lng } = res.body.results[0].geometry.location;
+                console.log(res)
+                const fullAddress = res.body.data[0].label;
+                const lat = res.body.data[0].latitude;
+                const lng = res.body.data[0].longitude;
                 const data = { lat, lng, fullAddress };
                 resolve(data);
             });
@@ -213,25 +209,29 @@ const getGeoCode = (address) => {
 const getWeather = (lat, lng, fullAddress) => {
     return new Promise((resolve, reject) => {
         superagent
-            .get(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/7bbecca28cbc31d7c6739e70baa64e46/${lat},${lng}`)
+            .get(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&exclude=hourly&appid=f6e57b8b0083d328b4e416fab95e15f3`)
             .end((err, res) => {
                 if (err) {
                     reject(err)
                 }
+                console.log(res);
 
-                console.log(res)
-                const { summary, temperature, time, icon, humidity, windSpeed, uvIndex, visibility, precipType } = res.body.currently;
+                const { main, description, icon } = res.body.current.weather[0]; //main: group of weather (rain/snow), description: specific condition (light rain, hard snow)
+                const { temp, humidity, sunrise, sunset, visibility, uvi, wind_speed } = res.body.current;
                 const timeZone = res.body.timezone;
-                const data = res.body.daily.data;
+                console.log(timeZone);
+                const dt = res.body.current.dt;
+                const data = res.body.daily;
 
-                const dataNeeded = { summary, temperature, fullAddress, time, timeZone, icon, humidity, windSpeed, uvIndex, visibility, precipType, data };
+                const dataNeeded = { main, description, icon, timeZone, temp, humidity, sunrise, sunset, visibility, uvi, wind_speed, fullAddress, dt, data };
                 resolve(dataNeeded);
             })
     })
 }
 
 // change degree display
-let celciusType = true;    //celcius
+let celciusType = true;
+
 document.getElementById("celcius").onclick = () => {
     if (celciusType) {
         return;
@@ -240,7 +240,7 @@ document.getElementById("celcius").onclick = () => {
     document.getElementById("fahrenheit").classList.remove("active");
     document.getElementById("celcius").classList.add("active");
     document.getElementById("temperature__sign").innerHTML = "°C"
-    if(document.getElementById("inputSearch").value !=""){
+    if (document.getElementById("inputSearch").value != "") {
         main();
     }
 }
@@ -253,10 +253,11 @@ document.getElementById("fahrenheit").onclick = () => {
     document.getElementById("fahrenheit").classList.add("active");
     document.getElementById("celcius").classList.remove("active");
     document.getElementById("temperature__sign").innerHTML = "°F"
-    if(document.getElementById("inputSearch").value !=""){
+    if (document.getElementById("inputSearch").value != "") {
         main();
     }
 }
+
 
 const locationForm = document.getElementById("locationForm");
 locationForm.addEventListener('submit', main);
