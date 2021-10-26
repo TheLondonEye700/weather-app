@@ -171,13 +171,8 @@ const main = (e) => {
             return getWeather(res.lat, res.lng, res.fullAddress);
 
         }).then((resWeather) => {
-            //today main weather
             changeWeatherToday(resWeather);
-
-            //change week
             changeWeek(resWeather)
-
-            //today highlight
             changeHighlight(resWeather);
 
         }).catch((err) => {
@@ -191,16 +186,11 @@ const main = (e) => {
 const getGeoCode = (address) => {
     return new Promise((resolve, reject) => {
         superagent
-        // .get(`http://api.positionstack.com/v1/forward?access_key=494ba1f7c2875dcba864478f68e00bb3&query=${address}`)
             .get(`https://api.opencagedata.com/geocode/v1/json?q=${address}&key=5c8df751071e43bc928bb8db408cfef6`)
             .end((err, res) => {
-                if (err) {
-                    reject(err);
-                }
-                console.log(res)
+                if (err) { reject(err); }
+
                 const fullAddress = res.body.results[0].formatted;
-                // const lat = res.body.data[0].latitude;
-                // const lng = res.body.data[0].longitude;
                 const { lat, lng } = res.body.results[0].geometry;
                 const data = { lat, lng, fullAddress };
                 resolve(data);
@@ -213,10 +203,7 @@ const getWeather = (lat, lng, fullAddress) => {
         superagent
             .get(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lng}&exclude=hourly&appid=f6e57b8b0083d328b4e416fab95e15f3`)
             .end((err, res) => {
-                if (err) {
-                    reject(err)
-                }
-                console.log(res);
+                if (err) { reject(err) }
 
                 const { main, description, icon } = res.body.current.weather[0]; //main: (rain/snow), description: specific (light rain, hard snow)
                 const { temp, humidity, sunrise, sunset, visibility, uvi, wind_speed } = res.body.current;
@@ -232,7 +219,6 @@ const getWeather = (lat, lng, fullAddress) => {
 
 // change degree display
 let celciusType = true;
-
 document.getElementById("celcius").onclick = () => {
     if (celciusType) {
         return;
@@ -258,7 +244,6 @@ document.getElementById("fahrenheit").onclick = () => {
         main();
     }
 }
-
 
 const locationForm = document.getElementById("locationForm");
 locationForm.addEventListener('submit', main);
