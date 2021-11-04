@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 
-
     <!-- CSS  -->
     <link rel="stylesheet" href="./css/main.css">
     <title>Weather App</title>
@@ -148,7 +147,6 @@
                                 </div>
                             </div>
 
-                            <!-- If we need navigation buttons -->
                             <div class="swiper-button-prev"></div>
                             <div class="swiper-button-next"></div>
                         </div>
@@ -212,13 +210,6 @@
                                     <div class="quality__evaluation" id="visibilityEvaluate">Good</div>
                                 </div>
                             </div>
-                            <!-- <div class="col-xl-4 highlight_item highlight__air">
-                                <div class="highlight__item__content">
-                                    <h3>Air Quality</h3>
-                                    <div class="item_number">00</div>
-                                    <div class="quality__evaluation">Healthy</div>
-                                </div>
-                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -236,38 +227,7 @@
     <!-- SWIPER  -->
     <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script>
-        var mySwiper = new Swiper('.swiper-container', {
-            slidesPerView: 4,
-            spaceBetween: 20,
-
-            //Responsive breakpoints
-            breakpoints: {
-                0: {
-                    slidesPerView: 3,
-                },
-                640: {
-                    slidesPerView: 4,
-                },
-                768: {
-                    slidesPerView: 3,
-                },
-                975: {
-                    slidesPerView: 4,
-                },
-                1090: {
-                    slidesPerView: 5,
-                }
-            },
-
-            // Navigation arrows
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-
-        })
-    </script>
+    <script src="./js/library.js"></script>
 
     <script src="./js/main.js"></script>
 </body>
